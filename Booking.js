@@ -12,7 +12,7 @@ const client = new MongoClient(uri, {
 });
 
 // Define the booking() function
-async function booking() {
+async function bookingzz() {
   try {
     // Connect to the MongoDB cluster
     await client.connect(); 
