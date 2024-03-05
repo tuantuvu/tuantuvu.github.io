@@ -1,287 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Demo BXMT Routing</title>
-    <!-- Plugins CSS -->
-    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" href="vendors/PACE/themes/blue/pace-theme-minimal.css"/>
-    <link rel="stylesheet" href="vendors/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
-
-    <!-- Page Plugins CSS -->
-    <link rel="stylesheet" href="vendors/select2/dist/css/select2.css" />
-    <link rel="stylesheet" href="vendors/bootstrap-daterangepicker/daterangepicker.css"/>
-    <link rel="stylesheet" href="vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css"/>
-    <link rel="stylesheet" href="vendors/summernote/dist/summernote.css"/>
-
-    <link rel="stylesheet" href="vendors/bower-jvectormap/jquery-jvectormap-1.2.2.css"/>
-    <link rel="stylesheet" href="vendors/nvd3/build/nv.d3.min.css"/>
-
-    <!-- Core CSS -->
-    <link href="assets/css/ei-icon.css" rel="stylesheet">
-    <link href="assets/css/themify-icons.css" rel="stylesheet">
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/fonts/icomoon/styles.min.css" rel="stylesheet">
-    <link href="assets/fonts/glyphicon/glyphicon.css" rel="stylesheet">
-    <link href="assets/css/animate.min.css" rel="stylesheet">
-    <link href="assets/css/app.css" rel="stylesheet">
-
-    <!-- Core Leaflet CSS -->
-    <link rel="stylesheet" href="leaflet-core/css/leaflet.css"/>
-    <link rel="stylesheet" href="leaflet-core/css/leaflet-routing-machine.css"/>
-
-    <!-- Plugin Leaflet CSS -->
-    <link rel="stylesheet" href="plugin/css/L.Control.Opacity.css"/>
-    <link rel="stylesheet" href="plugin/css/easy-button.css"/>
-    <link rel="stylesheet" href="plugin/css/Control.Geocoder.css"/>
-    <link rel="stylesheet" href="plugin/css/L.Control.Window.css"/>
-    <link rel="stylesheet" href="plugin/css/L.Control.OpenCageData.Search.min.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="plugin/css/L.Control.Locate.css"/>
-    <link rel="stylesheet" href="plugin/css/L.Control.ZoomDisplay.css"/>
-    <link rel="stylesheet" href="plugin/css/leaflet.zoomhome.css"/>
-    <link rel="stylesheet" href="plugin/css/leaflet-sidebar.css"/>
-    <link rel="stylesheet" href="plugin/css/leaflet-gps.css"/>
-
-    <!-- Datatables CSS -->
-    <link href="vendors/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="vendors/datatables/media/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="vendors/datatables/media/css/select.dataTables.min.css" rel="stylesheet">
-    <link href="vendors/datatables/media/css/responsive.dataTables.min.css" rel="stylesheet">
-    <link href="vendors/datatables/media/css/buttons.bootstrap4.min.css" rel="stylesheet">
-
-    <!-- Custom Style -->
-    <link rel="stylesheet" href="css/app.css" />
+    <meta charset="utf-8" />
+    <title>Tính tiền dịch vụ xe Honda</title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script type="module" src="Booking.js"></script>
+    <script src="https://kit.fontawesome.com/ab2155e76b.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="App.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="app">
-        <div class="layout">
-            <!-- Side Nav START -->
-            <div class="side-nav">
-                <div class="side-nav-inner">
-                    <div class="side-nav-logo" style="height: 150px">
-                        <a href="index.html">
-                            <img src="assets/images/monre_logo.png" class="cus_logo"/>
-                        </a>
-                        <div class="mobile-toggle side-nav-toggle">
-                            <a href="#">
-                                <i class="ti-arrow-circle-left"></i>
-                            </a>
-                        </div>
+  
+
+    <div class="jumbotron">
+        <div class="container-fluid">
+            <h1>Công ty Cổ phần Bến xe Miền Tây</h1>
+            <p>Tính tiền dịch vụ xe Honda</p>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="from" class="col-xs-2 control-label"><i class="far fa-dot-circle"></i></label>
+                    <div class="col-xs-4">
+                        <input type="text" id="from" placeholder="Origin" class="form-control" value="Bến xe Miền Tây, Đường Kinh Dương Vương, An Lạc, Bình Tân, Ho Chi Minh City, Vietnam" disabled>
                     </div>
-                </div>
+               </div>
+               <div class="form-group">
+                
+                    <label for="to" class="col-xs-2 control-label"><i class="fas fa-map-marker-alt"></i></label>
+                    <div class="col-xs-4">
+                        <input type="text" id="to" placeholder="Destination" class="form-control">
+                    </div>
+                  
+                 </div>
+                 
+            </form>
+
+            <div class="col-xs-offset-2 col-xs-10">
+                <button class="btn btn-info btn-lg " onclick="calcRoute();"><i class="fas fa-map-signs"></i></button>
+				<button class="btn btn-info btn-lg " onclick="booking();">Book</button>
             </div>
-            <!-- Side Nav END -->
-
-            <!-- Page Container START -->
-            <div class="page-container">
-                <!-- Header START -->
-                <div class="header navbar">
-                    <div class="header-container">
-                        <ul class="nav-left navbar-dark">
-                            <li>
-                                <a class="side-nav-toggle" href="javascript:void(0);">
-                                    <i class="ti-view-grid font-size-14 text-white"></i>
-                                </a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="index.html" class="dropdown-toggle">
-                                    <div class="">
-                                        <span class="name pdd-right-5 text-white">
-                                            <i class="fa fa-home text-white"></i>
-                                            Trang chủ
-                                        </span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Header END -->
-
-                <!-- Content Wrapper START -->
-                <div class="main-content">
-                    <div class="full-container">
-                        <div id="map"></div>
-                    </div>
-                </div>
-                <!-- Content Wrapper END -->
-
-                <!-- Side Bar START -->
-                <div id="sidebar" class="leaflet-sidebar collapsed">
-                    <!-- nav tabs -->
-                    <div class="leaflet-sidebar-tabs">
-                        <!-- top aligned tabs -->
-                        <ul role="tablist">
-                            <li>
-                                <a href="#search" role="tab">
-                                    <i class="ti-map-alt active" style="margin-left: -3px"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- panel content -->
-                    <div class="leaflet-sidebar-content">
-                        <div class="leaflet-sidebar-pane" id="search">
-                            <h3 class="leaflet-sidebar-header">
-                                <b class="font-size-14">Tra cứu đường đi</b>
-                            </h3>
-                            <div class="row mrg-top-5" style="width: 77.5%">
-                                <div class="col-md-12 no-pdd">
-                                    <div class="card">
-                                        <div class="card-block pdd-horizon-10 pdd-vertical-10">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <form class="form-horizontal">
-                                                        <div class="form-group row list-ctkt">
-                                                            <label style="margin-top: 7px" class="col-md-12 control-label">
-                                                                <b>Điểm đi</b>
-                                                            </label>
-                                                            <div class="col-md-12">
-                                                                <input class="form-control input-sm" placeholder="Điểm đi"
-                                                                       type="text" name="diemDi" id="diemDi" value="Bến xe miền tây" disabled/>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row list-ctkt">
-                                                            <label style="margin-top: 7px" class="col-md-12 control-label">
-                                                                <b>Điểm đến</b>
-                                                            </label>
-                                                            <div class="col-md-12">
-                                                                <input class="form-control input-sm" placeholder="Điểm đến"
-                                                                       type="text" name="diemDen" id="diemDen" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row list-ctkt">
-                                                            <label style="margin-top: 7px" class="col-md-12 control-label">
-                                                                <b>Số tiền cho 1 km đầu tiên</b>
-                                                            </label>
-                                                            <div class="col-md-12">
-                                                                <input class="form-control input-sm" placeholder="Số tiền cho 1 km đầu tiên"
-                                                                       type="text" name="kmDauTien" id="kmDauTien" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row list-ctkt">
-                                                            <label style="margin-top: 7px" class="col-md-12 control-label">
-                                                                <b>Số tiền cho số km tiếp theo</b>
-                                                            </label>
-                                                            <div class="col-md-12">
-                                                                <input class="form-control input-sm" placeholder="Số tiền cho số km tiếp theo"
-                                                                       type="text" name="kmTiepTheo" id="kmTiepTheo" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row list-ctkt">
-                                                            <label style="margin-top: 7px" class="col-md-12 control-label">
-                                                                <b>Cơ chế tính tiền</b>
-                                                            </label>
-                                                            <div class="col-md-12">
-                                                                <select class="form-control input-sm" id="blockCalc">
-                                                                    <option class="form-control" value="ceil">Tính làm tròn nguyên</option>
-                                                                    <option class="form-control" value="exactly">Tính chính xác</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-12 text-right no-pdd">
-                                                            <button type="button" class="btn-xs btn btn-info no-mrg" id="tinhTien">
-                                                                <span class="text-white font-size-12">Tính tiền</span>
-                                                            </button>
-                                                            <a class="btn-xs btn btn-danger no-mrg" id="reset"> 
-                                                                <span class="text-white font-size-12">Reset</span>
-                                                            </a>
-                                                        </div>
-
-                                                        <!-- Kết quả -->
-                                                        <div class="form-group row list-ctkt">
-                                                            <label style="margin-top: 7px" class="col-md-12 control-label">
-                                                                <b>Tổng tiền: </b>
-                                                                <span class="text-info font-size-16" id="tongTien"></span>
-                                                            </label>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Side Bar END -->
-            </div>
-            <!-- Page Container END -->
+			
+        </div>
+        <div class="container-fluid">
+            <div id="googleMap"></div>
+            <div id="output"></div>
         </div>
     </div>
 
-    <script src="assets/js/vendor.js"></script>
-    <script src="plugin/js/jquery-3.3.1.js"></script>
-    <script src="vendors/bootstrap/dist/js/bootstrap.js"></script>
-    <!-- <script src="assets_map/js/map_function/config.js"></script> -->
-
-    <!-- Page Plugins JS -->
-    <script src="vendors/d3/d3.min.js"></script>
-    <script src="vendors/nvd3/build/nv.d3.min.js"></script>
-    <script src="vendors/jquery.sparkline/index.js"></script>
-
-    <script src="vendors/select2/dist/js/select2.js"></script>
-    <script src="vendors/moment/min/moment.min.js"></script>
-    <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <script src="vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-    <script src="vendors/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
-    <script src="vendors/summernote/dist/summernote.min.js"></script>
-
-    <!-- Datatables JS -->
-    <script src="vendors/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="vendors/datatables/media/js/dataTables.bootstrap4.min.js"></script>
-    <script src="vendors/datatables/media/js/datetime-moment.js"></script>
-
-    <!-- Datatables Plugin -->
-    <script src="vendors/datatables/media/tables/datatables.min.js"></script>
-    <script src="vendors/datatables/media/tables/extensions/responsive.min.js"></script>
-    <script src="vendors/datatables/media/tables/dataTables.responsive.min.js"></script>
-    <script src="vendors/datatables/media/tables/dataTables.buttons.min.js"></script>
-    <script src="vendors/datatables/media/tables/dataTables.select.min.js"></script>
-    <script src="vendors/datatables/media/tables/jszip.min.js"></script>
-    <script src="vendors/datatables/media/tables/pdfmake.min.js"></script>
-    <script src="vendors/datatables/media/tables/vfs_fonts.js"></script>
-    <script src="vendors/datatables/media/tables/buttons.html5.min.js"></script>
-
-    <!-- Core Leaflet JS -->
-    <script src="leaflet-core/js/leaflet.js" ></script>
-    <script src="leaflet-core/js/leaflet.ajax.js"></script>
-    <script src="leaflet-core/js/leaflet-routing-machine.js"></script>
-
-    <!-- Plugin Leaflet JS -->
-    <script src="plugin/js/L.Control.Opacity.js"></script>
-
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise"></script>
-    <script src="plugin/js/leaflet-bing-layer.js"></script>
-    <script src="plugin/js/mouseposition.js"></script>
-    <script src="plugin/js/easy-button.js"></script>
-    <script src="plugin/js/Control.Geocoder.js"></script>
-    <script src="plugin/js/L.Control.Window.js"></script>
-    <script src="plugin/js/L.Control.OpenCageSearch.min.js"></script>
-    <script src="plugin/js/L.Control.Locate.js" charset="utf-8"></script>
-    <script src="plugin/js/L.Control.ZoomDisplay.js"></script>
-    <script src="plugin/js/leaflet.zoomhome.js"></script>
-    <script src="plugin/js/leaflet-sidebar.js"></script>
-    <script src="plugin/js/leaflet-gps.js"></script>
-
-    <!-- Map Custom JS -->
-    <script src="js/app.js"></script>
-    <script src="js/mapRouting.js"></script>
-
-    <!-- App JS-->
-    <script src="assets/js/app.js"></script>
-
-    <script>
-        if ($("*").width() <= 1440 && $("*").width() >= 767) {
-            $(".app").toggleClass("is-collapsed");
-        }
-        $('.dropdown-menu').on('click', function (e) {
-            e.stopPropagation();
-        });
-    </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYD_s_DSY9vEJ5nbYsPHuN7sydFF1BWsY&libraries=places&callback=initMap"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="Main.js"></script>
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mongodb/4.2.2/mongodb.min.js"></script> -->
 </body>
 </html>
