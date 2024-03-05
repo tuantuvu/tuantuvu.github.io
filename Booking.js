@@ -57,4 +57,3 @@ async function booking() {
     await client.close();
   }
 }
-booking().catch(console.dir);
